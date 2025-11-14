@@ -1,0 +1,10 @@
+<h2>Listes des produits</h2>
+
+<ul>
+  @for( p of products; track p.id ){
+    <li >
+        {{ p.nom}} - {{p.prix}}£
+    </li>
+  }
+
+</ul>
