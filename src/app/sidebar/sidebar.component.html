@@ -1,8 +1,11 @@
-<!-- sidebar.html -->
 <div class="fixed left-0 top-0 min-h-screen flex">
-  <!-- Sidebar -->
   <aside class="w-52 bg-gradient-to-b from-sky-700 via-sky-600 to-sky-500 text-white shadow-lg transition-all duration-300
                  md:translate-x-0 -translate-x-full md:relative fixed z-40" id="sidebar">
+    <div class="toggle">
+      <button id="toggleSidebar" class="mt-4 ml-4 p-2 bg-white/20 rounded-lg hover:bg-white/30 transition md:hidden">
+        ☰
+      </button>
+    </div>
     <div class="p-6 flex flex-col h-full">
       <div class="mb-8">
         <div class="text-2xl font-bold tracking-tight">Mon App</div>
@@ -76,18 +79,3 @@
 
 </div>
 
-<!-- Small script to toggle sidebar on mobile -->
-<script>
-  const toggle = document.getElementById('toggleSidebar');
-  const sidebar = document.getElementById('sidebar');
-
-  toggle?.addEventListener('click', () => {
-    if (sidebar.classList.contains('-translate-x-full')) {
-      sidebar.classList.remove('-translate-x-full');
-      sidebar.classList.add('translate-x-0');
-    } else {
-      sidebar.classList.add('-translate-x-full');
-      sidebar.classList.remove('translate-x-0');
-    }
-  });
-</script>
