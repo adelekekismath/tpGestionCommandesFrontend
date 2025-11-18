@@ -54,15 +54,21 @@ export class AuthService {
   }
 
   isLoggedIn(){
-    if (isPlatformBrowser(this.platformId)){
-      if(localStorage.getItem("token") != null && localStorage.getItem("expireAt") != null){
-        let expireDate = new Date(localStorage.getItem("expireAt")!);
-        let now = new Date();
-        return expireDate > now;
-      }
+    if (!isPlatformBrowser(this.platformId)) {
+      return true;
     }
 
-    return false;
+    const token = localStorage.getItem("token");
+    const expireAt = localStorage.getItem("expireAt");
+
+    if (!token || !expireAt) {
+      return false;
+    }
+
+    const expireDate = new Date(expireAt);
+    const now = new Date();
+
+    return expireDate > now;
   }
 
   register(req:RegisterRequest): Observable<any>{
