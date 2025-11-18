@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { CanActivateFn } from "@angular/router";
-import { AuthService } from "./auths.servce";
+import { AuthService } from "./auths.service";
 import { Router } from "express";
 
 
