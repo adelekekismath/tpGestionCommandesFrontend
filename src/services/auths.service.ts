@@ -58,7 +58,6 @@ export class AuthService {
       if(localStorage.getItem("token") != null && localStorage.getItem("expireAt") != null){
         let expireDate = new Date(localStorage.getItem("expireAt")!);
         let now = new Date();
-
         return expireDate > now;
       }
     }

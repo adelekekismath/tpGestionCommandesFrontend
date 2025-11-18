@@ -1,7 +1,5 @@
-<h2 class="text-3xl mt-9 font-bold text-gray-900 mb-6 text-center">
-  Liste des produits
-</h2>
 
+@if(editing || creating){
 <div class="mx-auto max-w-lg bg-white p-6 rounded-2xl shadow mb-10">
   <h3 class="text-xl font-semibold mb-4 text-center">
     {{ editing ? "Modifier un produit" : "Ajouter un produit" }}
@@ -55,40 +53,85 @@
   </form>
   <app-toast></app-toast>
 </div>
+}
 
-<!-- LISTE DES PRODUITS -->
-<ul class="grid mx-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
-  @for (p of products; track p.id) {
-    <li class="bg-white p-5 rounded-2xl shadow hover:shadow-md transition flex flex-col justify-between border border-gray-100">
 
-      <div>
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ p.nom }}</h3>
-        <p class="text-sm text-gray-500 mb-4">
-          {{ p.description ?? 'Aucune description disponible.' }}
-        </p>
-      </div>
+<div class=" mt-4 mx-auto max-w-7xl px-2 mb-10">
+  <div class="w-full flex items-end justify-end">
+    <button (click)="creating = true"
+      class="mb-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+      <lucide-angular [img]="PlusIcon" class="w-5 h-5"></lucide-angular>
+      Ajouter un nouveau produit
+    </button>
+  </div>
 
-      <div class="flex justify-between items-center mt-auto">
+  <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200">
 
-        <span class="text-blue-600 font-bold text-xl">
-          {{ p.prix }} £
-        </span>
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Nom
+          </th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Description
+          </th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Prix
+          </th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Stock
+          </th>
+          <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
 
-        <div class="flex gap-2">
-          <button (click)="editProduct(p)"
-            class="px-3 py-1 bg-yellow-500 text-white rounded-lg text-sm hover:bg-yellow-600 transition">
-            <lucide-angular [img]="PenIcon" ></lucide-angular>
+      <tbody class="bg-white divide-y divide-gray-200">
+        @for (p of products; track p.id) {
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ p.nom }}
+            </td>
 
-          </button>
+            <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+              {{ p.description ?? 'N/A' }}
+            </td>
 
-          <button (click)="deleteProduct(p.id)"
-            class="px-3 py-1 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
-            <lucide-angular [img]="TrashIcon" ></lucide-angular>
-          </button>
-        </div>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">
+              {{ p.prix }} £
+            </td>
 
-      </div>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ p.stock }}
+            </td>
 
-    </li>
-  }
-</ul>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <div class="flex justify-end gap-2">
+
+                <button (click)="editProduct(p)"
+                  class="px-3 py-1 bg-yellow-500 text-white rounded-lg text-sm hover:bg-yellow-600 transition flex items-center justify-center">
+                  <lucide-angular [img]="PenIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+
+                <button (click)="deleteProduct(p.id)"
+                  class="px-3 py-1 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition flex items-center justify-center">
+                  <lucide-angular [img]="TrashIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+
+        @empty {
+          <tr>
+            <td colspan="5" class="text-center py-6 text-gray-500">
+              Aucun produit trouvé.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

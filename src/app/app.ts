@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AuthService } from '../services/auths.service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 })
 export class App {
   protected readonly title = signal('tpGestionCommandes');
+
+  constructor(private authService: AuthService){}
+
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
+  }
 }

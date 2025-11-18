@@ -1,7 +1,7 @@
 <!-- sidebar.html -->
-<div class="min-h-screen flex">
+<div class="fixed left-0 top-0 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-sky-700 via-sky-600 to-sky-500 text-white shadow-lg transition-all duration-300
+  <aside class="w-52 bg-gradient-to-b from-sky-700 via-sky-600 to-sky-500 text-white shadow-lg transition-all duration-300
                  md:translate-x-0 -translate-x-full md:relative fixed z-40" id="sidebar">
     <div class="p-6 flex flex-col h-full">
       <div class="mb-8">
@@ -12,19 +12,53 @@
       <nav class="flex-1">
         <ul class="space-y-1">
           <li>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition">Tableau de bord</a>
+            <a routerLink="/dashboard"
+              routerLinkActive #dashboard="routerLinkActive"
+              [class.text-white]="dashboard.isActive"
+              [class.font-semibold]="dashboard.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (dashboard.isActive ? ' bg-white/20' : '')">
+              Tableau de bord
+            </a>
           </li>
+
           <li>
-            <a href="product" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition">Produits</a>
+            <a routerLink="/product"
+              routerLinkActive #product="routerLinkActive"
+              [class.text-white]="product.isActive"
+              [class.font-semibold]="product.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (product.isActive ? ' bg-white/20' : '')">
+              Produits
+            </a>
           </li>
+
           <li>
-            <a href="order" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition">Commandes</a>
+            <a routerLink="/order"
+              routerLinkActive #order="routerLinkActive"
+              [class.text-white]="order.isActive"
+              [class.font-semibold]="order.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (order.isActive ? ' bg-white/20' : '')">
+              Commandes
+            </a>
           </li>
+
           <li>
-            <a href="client" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition">Clients</a>
+            <a routerLink="/client"
+              routerLinkActive #client="routerLinkActive"
+              [class.text-white]="client.isActive"
+              [class.font-semibold]="client.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (client.isActive ? ' bg-white/20' : '')">
+              Clients
+            </a>
           </li>
+
           <li>
-            <a href="category" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition">Catégories</a>
+            <a routerLink="/category"
+              routerLinkActive #category="routerLinkActive"
+              [class.text-white]="category.isActive"
+              [class.font-semibold]="category.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (category.isActive ? ' bg-white/20' : '')">
+              Catégories
+            </a>
           </li>
         </ul>
       </nav>
@@ -33,13 +67,8 @@
         <button class="w-full text-left px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition">
           Paramètres
         </button>
-        <button (click)="isConnected() ? logout() : login()" class="w-full mt-3 text-left px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition">
-          @if(isConnected()){
+        <button (click)="logout()" class="w-full mt-3 text-left px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition">
             Se déconnecter
-          }
-          @else{
-            Se connecter
-          }
         </button>
       </div>
     </div>

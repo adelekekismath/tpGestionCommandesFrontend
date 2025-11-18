@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auths.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -17,9 +17,6 @@ export class SidebarComponent {
     return this.authService.isLoggedIn();
   }
 
-  login() {
-    this.router.navigate(['/login']);
-  }
 
   logout() {
     this.authService.logout();

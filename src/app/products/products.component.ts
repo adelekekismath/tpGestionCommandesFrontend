@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ProductService, Product, ProductBaseDto } from '../../services/products.service';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, PenIcon, TrashIcon } from 'lucide-angular';
+import { LucideAngularModule, PenIcon, TrashIcon, PlusIcon } from 'lucide-angular';
 import { Category, CategoryService } from '../../services/category.service';
 import { ToastComponent } from '../toast/toast.component';
 import { ToastService } from '../../services/toast.service';
@@ -19,6 +19,7 @@ export class ProductsComponent {
   categories : Category[] = [];
   editing: boolean = false;
   editProductId: number | null = null;
+  creating: boolean = false;
   form: ProductBaseDto = {
     nom: null,
     description: null,
@@ -28,6 +29,7 @@ export class ProductsComponent {
   };
   readonly PenIcon = PenIcon;
   readonly TrashIcon = TrashIcon;
+  readonly PlusIcon = PlusIcon;
   @ViewChild(ToastComponent) toast! : ToastComponent;
 
   constructor(private productService: ProductService,
