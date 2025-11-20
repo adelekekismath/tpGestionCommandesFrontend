@@ -3,7 +3,7 @@ import { App } from './app';
 import { AuthComponent } from './auth/auth.component';
 import { ProductsComponent } from './products/products.component';
 import { CategoryComponent } from './category/category.component';
-import { authGuard, isAlreadyLoggedInGuard } from '../services/auth.guard';
+import { authGuard, isAlreadyLoggedInGuard } from '../services/auth/auth.guard';
 
 export const routes: Routes = [
   {path: '', component: App, canActivate: [authGuard]},

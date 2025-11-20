@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { CategorieDto, CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
-import { GenericTableComponent } from '../components/generic-table/generic-table.component';
 import { LucideAngularModule } from 'lucide-angular';
 import { ToastService } from '../../services/toast.service';
 import { FormsModule } from '@angular/forms';
-import { CrudComponent } from '../components/crud.component';
+import { AbstractCrudComponent } from '../components/abstract-crud';
+import { GenericCrudView } from '../crud/generic-crud-view.component';
+
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [GenericTableComponent, LucideAngularModule, FormsModule],
+  imports: [LucideAngularModule, FormsModule, GenericCrudView],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
 
 
-export class CategoryComponent extends CrudComponent<Category, CategorieDto> {
+export class CategoryComponent extends AbstractCrudComponent<Category, CategorieDto> {
 
   createEmptyForm(): CategorieDto {
       return {

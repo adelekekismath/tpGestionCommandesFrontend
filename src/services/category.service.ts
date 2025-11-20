@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { GenericCrudService } from "./generic-crud.service";
+import { AbstractBaseCrudService } from "./crud/abstract-base-crud.service";
 
 export interface Category {
   id: number,
@@ -14,7 +14,7 @@ export interface CategorieDto {
 }
 
 @Injectable({providedIn:'root'})
-export class CategoryService extends GenericCrudService<Category, CategorieDto>{
+export class CategoryService extends AbstractBaseCrudService<Category, CategorieDto>{
 
   protected apiUrl : string = "http://localhost:5251/api/Categorie";
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { AuthService } from '../services/auths.service';
+import { AuthService } from '../services/auth/auths.service';
 import { ToastComponent } from './toast/toast.component';
 
 

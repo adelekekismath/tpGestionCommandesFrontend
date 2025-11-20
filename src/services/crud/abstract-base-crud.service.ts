@@ -1,9 +1,8 @@
-// src/app/services/generic-crud.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CrudService } from './crud-service.interface';
+import { IBaseCrudService } from './base-crud.interface';
 
-export abstract class GenericCrudService<T , TDto> implements CrudService<T , TDto> {
+export abstract class AbstractBaseCrudService<T , TDto> implements IBaseCrudService<T , TDto> {
   protected abstract apiUrl: string;
 
   constructor(protected http: HttpClient) {}

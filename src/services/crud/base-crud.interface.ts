@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 
 
-export interface CrudService<T, CreateDto> {
+export interface IBaseCrudService<T, CreateDto> {
   getAll(): Observable<T[]>;
   get(id: number): Observable<T>;
   create(dto: CreateDto): Observable<T>;

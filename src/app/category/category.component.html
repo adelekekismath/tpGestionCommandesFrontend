@@ -1,68 +1,51 @@
-<app-generic-table
+<app-crud
   [items]="items"
-  [headerTemplate]="categoryHeader"
-  [rowTemplate]="categoryRow"
+  [isLoading]="isLoading"
+  [form]="form"
+  [editMode]="editing"
+  [createMode]="creating"
+  [header]="header"
+  [row]="row"
+  [formTemplate]="formTemplate"
   (edit)="edit($event)"
   (delete)="delete($event)"
+  (save)="save()"
   (create)="creating = true"
->
-</app-generic-table>
+  (cancel)="cancelEdit()">
+</app-crud>
 
-<ng-template #categoryHeader>
-  <tr>
-    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
-    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-    <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
-  </tr>
-</ng-template>
+  <ng-template #header>
+    <tr>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+      <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
+    </tr>
+  </ng-template>
 
+  <ng-template #row let-p let-edit="edit" let-delete="delete">
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.nom }}</td>
+    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.description ?? 'N/A' }}</td>
 
-<ng-template #categoryRow let-p let-edit="edit" let-delete="delete">
-  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.nom }}</td>
-  <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.description ?? 'N/A' }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <div class="flex justify-end gap-2">
+        <button (click)="edit.emit(p)" class="text-green-500">
+          <lucide-angular [img]="PenIcon" class="w-4 h-4"></lucide-angular>
+        </button>
+        <button (click)="delete.emit(p.id)" class="text-red-500">
+          <lucide-angular [img]="TrashIcon" class="w-4 h-4"></lucide-angular>
+        </button>
+      </div>
+    </td>
+  </ng-template>
 
-  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-    <div class="flex justify-end gap-2">
-      <button (click)="edit.emit(p)" class="text-green-500">
-        <lucide-angular [img]="PenIcon" class="w-4 h-4"></lucide-angular>
-      </button>
-      <button (click)="delete.emit(p.id)" class="text-red-500">
-        <lucide-angular [img]="TrashIcon" class="w-4 h-4"></lucide-angular>
-      </button>
-    </div>
-  </td>
-</ng-template>
-
-
-@if(editing || creating){
-<div class="mx-auto max-w-lg bg-white p-6 rounded-2xl shadow mb-10">
-  <h3 class="text-xl font-semibold mb-4 text-center">
-    {{ editing ? "Modifier une catégorie" : "Ajouter une catégorie" }}
-  </h3>
-
-  <form (ngSubmit)="save()" class="space-y-4">
-
-    <input type="text" placeholder="Nom de la catégorie"
+  <ng-template #formTemplate let-form="form">
+    <input type="text" placeholder="Nom du produit"
       [(ngModel)]="form.nom" name="nom"
       class="w-full border rounded-lg p-3" required />
 
     <textarea placeholder="Description"
       [(ngModel)]="form.description" name="description" required
       class="w-full border rounded-lg p-3"></textarea>
-
-
-    <div class="flex justify-between">
-      <button type="submit"
-        class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-        {{ editing ? "Mettre à jour" : "Ajouter" }}
-      </button>
-      <button type="button"
-        (click)="reset()"
-        class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
-        Annuler
-      </button>
-    </div>
-
-  </form>
-</div>
-}
+  </ng-template>

@@ -1,12 +1,12 @@
-import { LucideAngularModule, PenIcon, TrashIcon,PlusIcon } from "lucide-angular";
+import { PenIcon, TrashIcon,PlusIcon } from "lucide-angular";
 import { ToastService } from "../../services/toast.service";
 import { OnInit } from "@angular/core";
 import { Injectable } from "@angular/core";
-import { CrudService } from "../../services/crud-service.interface";
+import { IBaseCrudService } from "../../services/crud/base-crud.interface";
 import { extractErrorMessages } from "../../helper/extractErrorMessages";
 
 @Injectable()
-export abstract class CrudComponent<T,Tdto> implements OnInit {
+export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
   items:T[] = [];
   editing: boolean = false;
   form!: Tdto;
@@ -18,7 +18,7 @@ export abstract class CrudComponent<T,Tdto> implements OnInit {
   readonly TrashIcon = TrashIcon;
   readonly PlusIcon = PlusIcon;
 
-  constructor(protected service: CrudService<T,Tdto>,
+  constructor(protected service: IBaseCrudService<T,Tdto>,
     private toastService: ToastService
   ){}
 
@@ -79,6 +79,7 @@ export abstract class CrudComponent<T,Tdto> implements OnInit {
   edit(itemToUpdate: T){
     this.editItemId = (itemToUpdate as any).id;
     this.form = {... itemToUpdate as any};
+    console.log("this.form",this.form);
     this.editing = true;
   }
 

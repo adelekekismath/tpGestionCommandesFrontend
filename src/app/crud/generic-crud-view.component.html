@@ -1,0 +1,41 @@
+@if (isLoading) {
+  <div class="flex justify-center items-center h-64">
+    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+  </div>
+}
+@else {
+  <app-generic-table
+    [items]="items"
+    [headerTemplate]="header"
+    [rowTemplate]="row"
+    (edit)="edit.emit($event)"
+    (delete)="delete.emit($event)"
+    (create)="createMode = true">
+  </app-generic-table>
+
+  @if (editMode || createMode) {
+    <h3 class="text-xl font-semibold mb-4 text-center">
+        {{ editMode ? "Modifier un élément" : "Ajouter un élément" }}
+      </h3>
+    <div class="mx-auto max-w-lg bg-white p-6 rounded-xl shadow mb-10">
+
+      <ng-template
+        [ngTemplateOutlet]="formTemplate"
+        [ngTemplateOutletContext]="{ form: form }">
+      </ng-template>
+
+      <div class="flex justify-between mt-6">
+        <button (click)="save.emit()"
+          class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          Enregistrer
+        </button>
+
+        <button (click)="cancel.emit()"
+          class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500">
+          Annuler
+        </button>
+      </div>
+
+    </div>
+    }
+}
