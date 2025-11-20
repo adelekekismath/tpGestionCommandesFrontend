@@ -13,11 +13,6 @@ export class SidebarComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  isConnected(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

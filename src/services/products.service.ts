@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { GenericCrudService } from "./generic-crud.service";
 
 export interface Product {
     id: number;
@@ -21,30 +21,12 @@ export interface ProductBaseDto{
 }
 
 @Injectable({providedIn: 'root'})
-export class ProductService {
+export class ProductService extends GenericCrudService<Product, ProductBaseDto> {
 
-  private apiUrl = 'http://localhost:5251/api/Produit';
+  protected apiUrl = 'http://localhost:5251/api/Produit';
 
-  constructor(private http: HttpClient){}
-
-  getAll(): Observable<Product[]>{
-    return this.http.get<Product[]>(this.apiUrl);
-  }
-
-  get(id:number): Observable<Product>{
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
-  }
-
-  create(newProduct:ProductBaseDto): Observable<Product>{
-    return this.http.post<Product>((this.apiUrl), newProduct);
-  }
-
-  put(id:number, productToUpdate:ProductBaseDto):  Observable<void>{
-    return this.http.put<void>(`${this.apiUrl}/${id}`, productToUpdate);
-  }
-
-  delete(id:number): Observable<void>{
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  constructor( http: HttpClient){
+    super(http);
   }
 
 }

@@ -1,26 +1,30 @@
 import { Component } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
+import { CategorieDto, CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
-
+import { GenericTableComponent } from '../components/generic-table/generic-table.component';
+import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../services/toast.service';
+import { FormsModule } from '@angular/forms';
+import { CrudComponent } from '../components/crud.component';
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [],
+  imports: [GenericTableComponent, LucideAngularModule, FormsModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
-export class CategoryComponent {
-  categories : Category[] = [];
 
-  constructor(private categorieService: CategoryService){}
 
-  ngOnInit(){
-    this.loadCategories();
+export class CategoryComponent extends CrudComponent<Category, CategorieDto> {
+
+  createEmptyForm(): CategorieDto {
+      return {
+        nom: '',
+        description: ''
+      };
   }
-
-  loadCategories(){
-    this.categorieService.getAll().subscribe((data)=>{
-      this.categories = data;
-    })
-  }
+  constructor(private categoryService: CategoryService,
+      toastService: ToastService,) {
+        super(categoryService, toastService)
+      }
 }

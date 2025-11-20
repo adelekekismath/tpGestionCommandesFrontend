@@ -1,22 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthService } from '../services/auths.service';
+import { ToastComponent } from './toast/toast.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent],
+  imports: [RouterOutlet, SidebarComponent, ToastComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App {
+export class App  {
   protected readonly title = signal('tpGestionCommandes');
 
-  constructor(private authService: AuthService){}
+  constructor(public authService: AuthService){}
 
-  isLoggedIn(){
-    return this.authService.isLoggedIn();
-  }
+
 }

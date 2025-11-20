@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { response } from "express";
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 
@@ -26,6 +25,7 @@ export interface RegisterRequest {
 export class AuthService {
   private apiUrl = 'http://localhost:5251/api/Auth/login';
   private platformId = inject(PLATFORM_ID);
+  isInitialized = false;
 
   constructor(private http: HttpClient){}
 
@@ -62,12 +62,13 @@ export class AuthService {
     const expireAt = localStorage.getItem("expireAt");
 
     if (!token || !expireAt) {
+      this.isInitialized = true;
       return false;
     }
 
     const expireDate = new Date(expireAt);
     const now = new Date();
-
+    this.isInitialized = true;
     return expireDate > now;
   }
 

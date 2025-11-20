@@ -1,9 +1,11 @@
-
-@if(isLoggedIn()){
-  <app-sidebar></app-sidebar>
+@if(authService.isInitialized){
+    @if(authService.isLoggedIn()){
+      <app-sidebar></app-sidebar>
+    }
 }
 
-<div [class.ml-52]="isLoggedIn()">
-  <router-outlet />
+<div [class.ml-52]="authService.isInitialized && authService.isLoggedIn()">
+      <router-outlet />
+      <app-toast></app-toast>
 </div>
 

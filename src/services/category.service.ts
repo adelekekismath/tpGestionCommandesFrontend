@@ -1,24 +1,27 @@
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { GenericCrudService } from "./generic-crud.service";
 
 export interface Category {
   id: number,
   nom: string,
   description: string
 }
+export interface CategorieDto {
+  nom: string | null,
+  description: string | null
+}
 
 @Injectable({providedIn:'root'})
-export class CategoryService {
+export class CategoryService extends GenericCrudService<Category, CategorieDto>{
 
-  private apiUrl : string = "http://localhost:5251/api/Categorie";
+  protected apiUrl : string = "http://localhost:5251/api/Categorie";
 
-  constructor(private http: HttpClient){}
-
-
-  getAll(): Observable<Category[]>{
-    return this.http.get<Category[]>(this.apiUrl);
+  constructor( http: HttpClient){
+    super(http);
   }
+
 }
 
 
