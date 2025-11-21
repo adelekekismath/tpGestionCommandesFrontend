@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { AbstractBaseCrudService } from "./crud/abstract-base-crud.service";
+import { AbstractCrudService } from "./crud/abstract-crud.service";
 
 export interface Product {
     id: number;
@@ -21,7 +21,7 @@ export interface ProductBaseDto{
 }
 
 @Injectable({providedIn: 'root'})
-export class ProductService extends AbstractBaseCrudService<Product, ProductBaseDto> {
+export class ProductService extends AbstractCrudService<Product, ProductBaseDto> {
 
   protected apiUrl = 'http://localhost:5251/api/Produit';
 

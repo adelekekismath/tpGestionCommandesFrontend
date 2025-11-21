@@ -1,1 +1,58 @@
-<p>client works!</p>
+<app-crud
+  [items]="items"
+  [isLoading]="isLoading"
+  [form]="form"
+  [editMode]="editing"
+  [createMode]="creating"
+  [header]="header"
+  [row]="row"
+  [formTemplate]="formTemplate"
+  (edit)="edit($event)"
+  (delete)="delete($event)"
+  (save)="save()"
+  (create)="creating = true"
+  (cancel)="cancelEdit()">
+</app-crud>
+
+  <ng-template #header>
+    <tr>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telephone</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+      <th scope="col" class="relative px-6 py-3"><span >Actions</span></th>
+    </tr>
+  </ng-template>
+
+  <ng-template #row let-p let-edit="edit" let-delete="delete">
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.nom }}</td>
+    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.prenom ?? 'N/A' }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">{{ p.telephone }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ p.adresse }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ p.email }}</td>
+
+  </ng-template>
+
+  <ng-template #formTemplate let-form="form">
+    <input type="text" placeholder="Nom du produit"
+      [(ngModel)]="form.nom" name="nom"
+      class="w-full border rounded-lg p-3" required />
+
+    <input type="text" placeholder="Prénom"
+      [(ngModel)]="form.prenom" name="prenom"
+      class="w-full border rounded-lg p-3 mt-4" />
+
+    <input type="text" placeholder="Téléphone"
+      [(ngModel)]="form.telephone" name="telephone"
+      class="w-full border rounded-lg p-3 mt-4" required />
+
+    <input type="text" placeholder="Adresse"
+      [(ngModel)]="form.adresse" name="adresse"
+      class="w-full border rounded-lg p-3 mt-4" required />
+
+    <input type="email" placeholder="Email"
+      [(ngModel)]="form.email" name="email"
+      class="w-full border rounded-lg p-3 mt-4" required />
+
+  </ng-template>

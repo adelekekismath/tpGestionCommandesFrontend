@@ -18,6 +18,16 @@
         @for (item of items; track item.id) {
           <tr>
             <ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{$implicit: item, edit: edit, delete: delete}"></ng-container>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <div class="flex justify-end gap-2">
+                <button (click)="edit.emit(item)" class="text-green-500">
+                  <lucide-angular [img]="PenIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+                <button (click)="delete.emit(item.id)" class="text-red-500">
+                  <lucide-angular [img]="TrashIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+              </div>
+            </td>
           </tr>
         }
 

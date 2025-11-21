@@ -25,37 +25,29 @@
   </ng-template>
 
   <ng-template #row let-p let-edit="edit" let-delete="delete">
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.nom }}</td>
-    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.description ?? 'N/A' }}</td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">{{ p.prix }} £</td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ p.stock }}</td>
+    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.statut ?? 'N/A' }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">{{ p.montantTotal }} </td>
   </ng-template>
 
   <ng-template #formTemplate let-form="form">
-    <input type="text" placeholder="Nom du produit"
-      [(ngModel)]="form.nom" name="nom"
+    <input type="text" placeholder="Statut de la commande"
+      [(ngModel)]="form.statut" name="statut"
       class="w-full border rounded-lg p-3" required />
 
-    <textarea placeholder="Description"
-      [(ngModel)]="form.description" name="description" required
+    <textarea placeholder="Montant Total"
+      [(ngModel)]="form.montantTotal" name="montantTotal" required
       class="w-full border rounded-lg p-3"></textarea>
 
-    <input type="number" placeholder="Prix"
-      [(ngModel)]="form.prix" name="prix"
-      class="w-full border rounded-lg p-3" required />
 
-    <input type="number" placeholder="Stock"
-      [(ngModel)]="form.stock" name="stock"
-      class="w-full border rounded-lg p-3" required />
-
-    <select placeholder="Catégorie"
-      [(ngModel)]="form.categorieId" name="categorie"
+    <select placeholder="Client"
+      [(ngModel)]="form.clientId" name="client"
       class="w-full border rounded-lg p-3" required >
-      <option value="" disabled selected>Choisir une catégorie</option>
-      @for(cat of categories; track cat.id){
+      <option value="" disabled selected>Choisir un client</option>
+      @for(cat of clients; track cat.id){
         <option  [value]="cat.id">{{ cat.nom }}</option>
       }
 
     </select>
 
   </ng-template>
+

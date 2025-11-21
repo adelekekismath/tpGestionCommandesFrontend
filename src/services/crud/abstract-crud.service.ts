@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IBaseCrudService } from './base-crud.interface';
 
-export abstract class AbstractBaseCrudService<T , TDto> implements IBaseCrudService<T , TDto> {
+export abstract class AbstractCrudService<T , TDto> implements IBaseCrudService<T , TDto> {
   protected abstract apiUrl: string;
 
   constructor(protected http: HttpClient) {}

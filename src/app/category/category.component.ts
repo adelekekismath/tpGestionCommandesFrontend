@@ -5,7 +5,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { ToastService } from '../../services/toast.service';
 import { FormsModule } from '@angular/forms';
 import { AbstractCrudComponent } from '../components/abstract-crud';
-import { GenericCrudView } from '../crud/generic-crud-view.component';
+import { GenericCrudView } from '../components/generic-crud-view/generic-crud-view.component';
 
 @Component({
   selector: 'app-category',

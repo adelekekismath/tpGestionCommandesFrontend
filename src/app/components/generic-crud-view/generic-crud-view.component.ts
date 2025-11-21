@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
-import { GenericTableComponent } from '../components/generic-table/generic-table.component';
+import { GenericTableComponent } from '../generic-table/generic-table.component';
 
 @Component({
   selector: 'app-crud',

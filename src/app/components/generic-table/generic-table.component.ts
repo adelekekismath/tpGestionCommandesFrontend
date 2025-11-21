@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, PlusIcon } from 'lucide-angular';
+import { LucideAngularModule, PlusIcon, PenIcon, TrashIcon } from 'lucide-angular';
 
 @Component({
   selector: 'app-generic-table',
@@ -9,6 +9,9 @@ import { LucideAngularModule, PlusIcon } from 'lucide-angular';
   templateUrl: './generic-table.component.html',
 })
 export class GenericTableComponent {
+
+  readonly PenIcon = PenIcon;
+  readonly TrashIcon = TrashIcon
 
   PlusIcon = PlusIcon;
 
@@ -25,4 +28,5 @@ export class GenericTableComponent {
   get colspanCount(): number {
     return 5;
   }
+
 }
