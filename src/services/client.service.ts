@@ -23,7 +23,7 @@ export interface ClientBaseDto {
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService extends AbstractCrudService<Client, ClientBaseDto> {
+export class ClientService extends AbstractCrudService<Client, ClientBaseDto, ClientBaseDto >{
   protected apiUrl = 'http://localhost:5251/api/Clients';
 
   constructor(http: HttpClient) {

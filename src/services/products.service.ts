@@ -21,7 +21,7 @@ export interface ProductBaseDto{
 }
 
 @Injectable({providedIn: 'root'})
-export class ProductService extends AbstractCrudService<Product, ProductBaseDto> {
+export class ProductService extends AbstractCrudService<Product, ProductBaseDto, ProductBaseDto >{
 
   protected apiUrl = 'http://localhost:5251/api/Produit';
 

@@ -10,15 +10,18 @@ export interface Commande {
   montantTotal: number;
 }
 
-export interface CommandeBaseDto {
+export interface CommandeCreateDto {
+  clientId: number;
+}
+
+export interface CommandeUpdateDto {
   statut: string;
-  montantTotal: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommandeService extends AbstractCrudService<Commande, CommandeBaseDto> {
+export class CommandeService extends AbstractCrudService<Commande, CommandeCreateDto, CommandeUpdateDto >{
   protected apiUrl = 'http://localhost:5251/api/Commandes';
 
   constructor(http: HttpClient) {

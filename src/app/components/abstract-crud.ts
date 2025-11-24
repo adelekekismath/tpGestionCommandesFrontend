@@ -6,19 +6,18 @@ import { IBaseCrudService } from "../../services/crud/base-crud.interface";
 import { extractErrorMessages } from "../../helper/extractErrorMessages";
 
 @Injectable()
-export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
+export abstract class AbstractCrudComponent<T,TCreatedto,TUpdatedto> implements OnInit {
   items:T[] = [];
   editing: boolean = false;
-  form!: Tdto;
+  form!: TCreatedto | TUpdatedto;
   editItemId: number | null = null;
   creating: boolean = false;
-  abstract createEmptyForm(): Tdto;
   isLoading: boolean = true;
   readonly PenIcon = PenIcon;
   readonly TrashIcon = TrashIcon;
   readonly PlusIcon = PlusIcon;
 
-  constructor(protected service: IBaseCrudService<T,Tdto>,
+  constructor(protected service: IBaseCrudService<T,TCreatedto,TUpdatedto>,
     private toastService: ToastService
   ){}
 
@@ -26,6 +25,8 @@ export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
     this.load();
     this.form = this.createEmptyForm();
   }
+
+  abstract createEmptyForm(): TCreatedto;
 
   load(){
     this.service.getAll().subscribe((data) => {
@@ -36,7 +37,7 @@ export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
 
   save(){
     if(this.editing && this.editItemId){
-          this.service.update(this.editItemId,this.form).subscribe({
+          this.service.update(this.editItemId,this.form as TUpdatedto).subscribe({
             next:(updateProduct)=>{
               var index = this.items.findIndex(p => (p as any).id === this.editItemId);
               if(index !== -1){
@@ -51,7 +52,7 @@ export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
           })
         }
         else{
-          this.service.create(this.form).subscribe({
+          this.service.create(this.form as TCreatedto).subscribe({
             next:(createdProduct)=>{
               this.items.push(createdProduct);
               this.toastService.showSuccess("Création effectuée.");
@@ -76,11 +77,18 @@ export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
     })
   }
 
-  edit(itemToUpdate: T){
+  startEdit(itemToUpdate: T){
     this.editItemId = (itemToUpdate as any).id;
-    this.form = {... itemToUpdate as any};
-    console.log("this.form",this.form);
+    this.form  = {... itemToUpdate as any} as TUpdatedto;
+    this.creating = false;
     this.editing = true;
+  }
+
+  startCreate(){
+    this.form = this.createEmptyForm();
+    this.editing = false;
+    this.editItemId = null;
+    this.creating = true;
   }
 
   cancelEdit(){
@@ -94,7 +102,4 @@ export abstract class AbstractCrudComponent<T,Tdto> implements OnInit {
     this.editing = false;
     this.editItemId = null;
   }
-
-
-
 }

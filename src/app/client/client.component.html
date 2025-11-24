@@ -7,10 +7,10 @@
   [header]="header"
   [row]="row"
   [formTemplate]="formTemplate"
-  (edit)="edit($event)"
+  (edit)="startEdit($event)"
   (delete)="delete($event)"
   (save)="save()"
-  (create)="creating = true"
+  (create)="startCreate()"
   (cancel)="cancelEdit()">
 </app-crud>
 

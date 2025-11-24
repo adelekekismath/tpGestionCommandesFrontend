@@ -16,7 +16,7 @@ import { GenericCrudView } from '../components/generic-crud-view/generic-crud-vi
 })
 
 
-export class CategoryComponent extends AbstractCrudComponent<Category, CategorieDto> {
+export class CategoryComponent extends AbstractCrudComponent<Category, CategorieDto, CategorieDto> {
 
   createEmptyForm(): CategorieDto {
       return {

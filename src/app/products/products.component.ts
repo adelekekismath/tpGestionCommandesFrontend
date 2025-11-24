@@ -15,7 +15,7 @@ import { GenericCrudView } from '../components/generic-crud-view/generic-crud-vi
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent extends AbstractCrudComponent<Product, ProductBaseDto> {
+export class ProductsComponent extends AbstractCrudComponent<Product, ProductBaseDto, ProductBaseDto> {
   categories: Category[] = [];
 
   constructor(private productService: ProductService,

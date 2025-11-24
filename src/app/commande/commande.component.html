@@ -7,47 +7,57 @@
   [header]="header"
   [row]="row"
   [formTemplate]="formTemplate"
-  (edit)="edit($event)"
+  (edit)="startEdit($event)"
   (delete)="delete($event)"
   (save)="save()"
-  (create)="creating = true"
+  (create)="startCreate()"
   (cancel)="cancelEdit()">
 </app-crud>
 
   <ng-template #header>
     <tr>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Référence</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant Total</th>
       <th scope="col" class="relative px-6 py-3"><span >Actions</span></th>
     </tr>
   </ng-template>
 
   <ng-template #row let-p let-edit="edit" let-delete="delete">
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.id }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ getClientName(p.clientId) }}</td>
     <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ p.statut ?? 'N/A' }}</td>
     <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">{{ p.montantTotal }} </td>
   </ng-template>
 
-  <ng-template #formTemplate let-form="form">
-    <input type="text" placeholder="Statut de la commande"
-      [(ngModel)]="form.statut" name="statut"
-      class="w-full border rounded-lg p-3" required />
-
-    <textarea placeholder="Montant Total"
-      [(ngModel)]="form.montantTotal" name="montantTotal" required
-      class="w-full border rounded-lg p-3"></textarea>
-
-
-    <select placeholder="Client"
+  <ng-template #formTemplate let-form="form" >
+      <label for="client" class="font-semibold text-gray-700">Client</label>
+     <select placeholder="Client"
       [(ngModel)]="form.clientId" name="client"
       class="w-full border rounded-lg p-3" required >
       <option value="" disabled selected>Choisir un client</option>
       @for(cat of clients; track cat.id){
-        <option  [value]="cat.id">{{ cat.nom }}</option>
+        <option  [value]="cat.id">{{  cat.prenom + " " + cat.nom }}</option>
       }
-
     </select>
+
+    <label for="statut" class="font-semibold text-gray-700">Statut de la commande</label>
+    <select placeholder="Statut"
+      [(ngModel)]="form.statut" name="statut"
+      class="w-full border rounded-lg p-3" required >
+      <option value="" disabled selected>Choisir un statut</option>
+        <option value="EnAttente">En attente</option>
+        <option value="Traitee">Traitée</option>
+        <option value="Expediee">Expédiée</option>
+        <option value="Livree">Livrée</option>
+        <option value="Annulee">Annulée</option>
+    </select>
+
+    <label for="montantTotal" class="font-semibold text-gray-700">Montant Total</label>
+    <input type="number" placeholder="Montant Total"
+      [(ngModel)]="form.montantTotal" name="montantTotal" required
+      class="w-full border rounded-lg p-3" />
 
   </ng-template>
 

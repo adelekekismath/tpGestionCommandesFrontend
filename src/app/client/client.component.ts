@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
-export class ClientComponent extends AbstractCrudComponent<Client, ClientBaseDto> {
+export class ClientComponent extends AbstractCrudComponent<Client, ClientBaseDto, ClientBaseDto> {
 
   constructor(private clientService: ClientService,
     toastService: ToastService) {

@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
 import { GenericCrudView } from '../components/generic-crud-view/generic-crud-view.component';
 import { AbstractCrudComponent } from '../components/abstract-crud';
-import { Commande, CommandeBaseDto, CommandeService } from '../../services/commande.service';
+import { Commande, CommandeCreateDto, CommandeService, CommandeUpdateDto } from '../../services/commande.service';
 import { ToastService } from '../../services/toast.service';
 import { Product, ProductService } from '../../services/products.service';
 import { Client, ClientService } from '../../services/client.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-commande',
   standalone: true,
-  imports: [GenericCrudView],
+  imports: [GenericCrudView, FormsModule],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
 
-export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeBaseDto> {
+export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeCreateDto, CommandeUpdateDto> {
 
   products: Product [] = [];
   clients: Client [] = [];
@@ -25,6 +26,7 @@ export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeB
     toastService: ToastService) {
     super(commandeService, toastService);
   }
+
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -44,6 +46,11 @@ export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeB
     this.clientService.getAll().subscribe((data)=>{
       this.clients = data;
     });
+  }
+
+  getClientName(clientId: number): string {
+    const client = this.clients.find(c => c.id === clientId);
+    return client ? `${client.prenom} ${client.nom}` : 'Unknown Client';
   }
 
   loadProducts(){

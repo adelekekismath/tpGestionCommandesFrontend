@@ -1,0 +1,67 @@
+@for(section of linesByCommande; track section.commande.id) {
+  <h2 class="ml-3 mt-5 text-lg font-bold mb-2">Commande n° {{ section.commande.id }}
+    (Date: {{ section.commande.dateCommande | date:'dd/MM/yyyy HH:mm' }})
+  </h2>
+
+  <app-crud
+    [items]="section.lignes"
+    [isLoading]="isLoading"
+    [form]="form"
+    [editMode]="editing"
+    [createMode]="creating"
+    [header]="header"
+    [row]="row"
+    [formTemplate]="formTemplate"
+    (edit)="startEdit($event)"
+    (delete)="delete($event)"
+    (save)="save()"
+    (create)="startCreate()"
+    (cancel)="cancelEdit()">
+  </app-crud>
+
+<hr class="my-6" />
+}
+
+  <ng-template #header>
+    <tr>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produit</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantité</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix Unitaire</th>
+      <th scope="col" class="relative px-6 py-3"><span >Actions</span></th>
+    </tr>
+  </ng-template>
+
+  <ng-template #row let-p let-edit="edit" let-delete="delete">
+    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{ products[p.produitId].nom  }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">{{ p.quantite }}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ p.prixUnitaire }}</td>
+  </ng-template>
+
+  <ng-template #formTemplate let-form="form">
+    <select placeholder="Commande ID"
+      [(ngModel)]="form.commandeId" name="commandeId"
+      class="w-full border rounded-lg p-3" required >
+      <option value="" disabled selected>Choisir une commande</option>
+      @for(cat of commandes; track cat.id){
+        <option  [value]="cat.id">{{ cat.id }}</option>
+      }
+    </select>
+
+    <select placeholder="Produit ID"
+      [(ngModel)]="form.produitId" name="produitId"
+      class="w-full border rounded-lg p-3" required >
+      <option value="" disabled selected>Choisir un produit</option>
+      @for(prod of products; track prod.id){
+        <option  [value]="prod.id">{{ prod.nom }}</option>
+      }
+    </select>
+
+    <input type="number" placeholder="Quantité"
+      [(ngModel)]="form.quantite" name="quantite"
+      class="w-full border rounded-lg p-3" required />
+
+    <input type="number" placeholder="Prix Unitaire"
+      [(ngModel)]="form.prixUnitaire" name="prixUnitaire"
+      class="w-full border rounded-lg p-3" required />
+
+  </ng-template>

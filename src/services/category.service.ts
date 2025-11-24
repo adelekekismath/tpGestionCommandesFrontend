@@ -14,7 +14,7 @@ export interface CategorieDto {
 }
 
 @Injectable({providedIn:'root'})
-export class CategoryService extends AbstractCrudService<Category, CategorieDto>{
+export class CategoryService extends AbstractCrudService<Category, CategorieDto, CategorieDto>{
 
   protected apiUrl : string = "http://localhost:5251/api/Categorie";
 

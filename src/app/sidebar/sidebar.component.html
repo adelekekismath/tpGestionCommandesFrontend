@@ -45,6 +45,15 @@
           </li>
 
           <li>
+            <a routerLink="/order-line"
+              routerLinkActive #lignecommande="routerLinkActive"
+              [class.text-white]="lignecommande.isActive"
+              [class.font-semibold]="lignecommande.isActive"
+              [class]="'block px-4 py-2 rounded-lg hover:bg-white/10 transition'+ (lignecommande.isActive ? ' bg-white/20' : '')">
+              Lignes de commande
+            </a>
+
+          <li>
             <a routerLink="/client"
               routerLinkActive #client="routerLinkActive"
               [class.text-white]="client.isActive"
