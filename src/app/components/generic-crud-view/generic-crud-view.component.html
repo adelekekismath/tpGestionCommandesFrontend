@@ -4,25 +4,25 @@
   </div>
 }
 @else {
+
   <app-generic-table
     [items]="items"
     [headerTemplate]="header"
     [rowTemplate]="row"
     (edit)="edit.emit($event)"
     (delete)="delete.emit($event)"
-    (create)="createMode = true">
+    (create)="create.emit()">
   </app-generic-table>
 
   @if (editMode || createMode) {
     <h3 class="text-xl font-semibold mb-4 text-center">
         {{ editMode ? "Modifier un élément" : "Ajouter un élément" }}
       </h3>
-    <div class="mx-auto max-w-lg bg-white p-6 rounded-xl shadow mb-10">
+    <div class="mx-auto max-w-lg flex flex-col gap-4 bg-white p-6 rounded-xl shadow mb-10">
 
       <ng-template
         [ngTemplateOutlet]="formTemplate"
         [ngTemplateOutletContext]="{ form: form }"
-        class="flex flex-col gap-4"
         >
       </ng-template>
 

@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-
 import { Observable, tap } from "rxjs";
 
 export interface LoginResponse {
@@ -23,7 +22,8 @@ export interface RegisterRequest {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  private apiUrl = 'http://localhost:5251/api/Auth/login';
+  private apiUrlLogin = 'http://localhost:5251/api/Auth/login';
+  private apiUrlRegister = 'http://localhost:5251/api/Auth/register';
   private platformId = inject(PLATFORM_ID);
   isInitialized = false;
 
@@ -31,7 +31,7 @@ export class AuthService {
 
   login(req:LoginRequest): Observable<LoginResponse>{
     return this.http
-    .post<LoginResponse>(`${this.apiUrl}`,req )
+    .post<LoginResponse>(`${this.apiUrlLogin}`,req )
     .pipe(tap(response =>{
       if (isPlatformBrowser(this.platformId)){
         localStorage.setItem("token", response.accessToken);
@@ -73,6 +73,6 @@ export class AuthService {
   }
 
   register(req:RegisterRequest): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/register`, req);
+    return this.http.post<any>(`${this.apiUrlRegister}`, req);
   }
 }

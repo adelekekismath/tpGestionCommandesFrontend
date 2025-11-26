@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component,  Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { GenericTableComponent } from '../generic-table/generic-table.component';
 
 @Component({
@@ -9,7 +9,8 @@ import { GenericTableComponent } from '../generic-table/generic-table.component'
   templateUrl: './generic-crud-view.component.html',
   styleUrl: './generic-crud-view.component.css'
 })
-export class GenericCrudView {
+export class GenericCrudView   {
+
 
   @Input() items: any[] = [];
   @Input() isLoading = false;

@@ -2,6 +2,10 @@
 export function extractErrorMessages(errorResponse: any): string {
   let errorsMessages = 'Une erreur inconnue est survenue.';
 
+  if(errorResponse.error.message){
+    return errorResponse.error.message;
+  }
+
   if (errorResponse && errorResponse.error && errorResponse.error.errors) {
     errorsMessages = '';
     Object.values(errorResponse.error.errors).forEach((element: any) => {

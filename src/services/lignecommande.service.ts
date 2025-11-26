@@ -14,13 +14,10 @@ export interface LignecommandeCreateDto {
   commandeId: number;
   produitId: number;
   quantite: number;
-  prixUnitaire: number;
 }
 
 export interface LignecommandeUpdateDto {
   quantite: number;
-  prixUnitaire: number;
-  produitId: number;
 }
 
 @Injectable({

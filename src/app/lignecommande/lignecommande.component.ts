@@ -18,6 +18,7 @@ import {DatePipe} from "@angular/common";
 export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande, LignecommandeCreateDto, LignecommandeCreateDto> {
   products: Product [] = [];
   commandes: Commande [] = [];
+  currentCommandeId: number | null = null;
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -37,8 +38,14 @@ export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande,
       commandeId: 0,
       produitId: 0,
       quantite: 0,
-      prixUnitaire: 0
     };
+  }
+
+  startCreateForCommande(commandeId: number){
+    console.log("Starting create for commandeId:", commandeId);
+    super.startCreate();
+    this.form.commandeId = commandeId;
+    this.currentCommandeId = commandeId;
   }
 
   loadProducts(){
@@ -52,6 +59,11 @@ export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande,
       commande: c,
       lignes: this.items.filter(l => l.commandeId === c.id)
     }));
+  }
+
+  getProductName(productId: number): string {
+    const product = this.products.find(p => p.id === productId);
+    return product ? product.nom : 'Unknown Product';
   }
 
   loadCommandes(){

@@ -1,14 +1,14 @@
-
-
 @if (currentToast) {
-  <div class="relative z-50 mt-9 p-4 rounded-lg shadow-xl text-white max-w-sm transition-opacity duration-300"
+  <div class="fixed top-5 left-5 z-[100] p-4 rounded-lg shadow-xl text-white max-w-sm transition-opacity duration-300"
       [class.bg-green-600]=" currentToast.type === 'success'"
       [class.bg-red-600]= "currentToast.type === 'error'"
       [class.bg-blue-600]="currentToast.type === 'info'"
     >
-    <button (click)="hideToast()" class=" absolute right-1 top-1 rounded-full hover:bg-white hover:bg-opacity-20 transition">
+
+    <button (click)="hideToast()" class="absolute right-1 top-1 rounded-full hover:bg-white hover:bg-opacity-20 transition">
         <lucide-angular [img]="XIcon" class="w-4 h-4"></lucide-angular>
       </button>
+
     <div class="flex items-center justify-between">
       <lucide-angular  [img]="currentToast.currentIcon" class="w-6 h-6 mr-2"></lucide-angular>
 

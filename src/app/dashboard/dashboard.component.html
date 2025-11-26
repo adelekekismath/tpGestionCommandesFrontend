@@ -1,0 +1,67 @@
+<div class="p-6 md:p-10 bg-gray-50 min-h-[calc(100vh-64px)]">
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-4 border-b-2 border-indigo-100 pb-2">Bienvenue</h1>
+    <p class="text-gray-500 mb-10">Visualisez les indicateurs clés et accédez rapidement aux modules principaux.</p>
+
+    <!-- 1. Indicateurs Clés de Performance (KPI Cards) -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-700 mb-5">Statistiques Clés</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for(kpi of kpis; track kpi.title) {
+          <div class="{{ kpi.color }} kpi-card p-6 rounded-2xl shadow-xl text-white overflow-hidden flex flex-col justify-between h-40"
+               [routerLink]="kpi.link">
+
+            <div class="flex justify-between items-start">
+              <h3 class="text-sm font-light opacity-90">{{ kpi.title }}</h3>
+              <lucide-angular [img]="kpi.icon" class="w-8 h-8 opacity-70"></lucide-angular>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-5xl font-extrabold leading-none">{{ kpi.value }}</p>
+              <p class="text-xs font-medium opacity-80 mt-1">{{ kpi.unit }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section >
+    <section>
+      <h2 class="text-xl font-semibold text-gray-700 mb-5">Accès Rapide aux Modules</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+
+        <!-- Card 1: Produits -->
+        <a routerLink="/product" class="p-5 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-indigo-400 transition flex flex-col items-center text-center">
+          <lucide-angular [img]="Package" class="w-10 h-10 text-indigo-500 mb-2"></lucide-angular>
+          <span class="text-base font-semibold text-gray-800">Produits</span>
+          <span class="text-xs text-gray-500 mt-1">Gérer le catalogue</span>
+        </a>
+
+        <!-- Card 2: Commandes -->
+        <a routerLink="/order" class="p-5 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-indigo-400 transition flex flex-col items-center text-center">
+          <lucide-angular [img]="ShoppingCart" class="w-10 h-10 text-pink-500 mb-2"></lucide-angular>
+          <span class="text-base font-semibold text-gray-800">Commandes</span>
+          <span class="text-xs text-gray-500 mt-1">Suivi et création</span>
+        </a>
+
+        <!-- Card 3: Clients -->
+        <a routerLink="/client" class="p-5 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-indigo-400 transition flex flex-col items-center text-center">
+          <lucide-angular [img]="Users" class="w-10 h-10 text-teal-500 mb-2"></lucide-angular>
+          <span class="text-base font-semibold text-gray-800">Clients</span>
+          <span class="text-xs text-gray-500 mt-1">Gestion du portefeuille</span>
+        </a>
+
+        <!-- Card 4: Catégories -->
+        <a routerLink="/category" class="p-5 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-indigo-400 transition flex flex-col items-center text-center">
+          <lucide-angular [img]="TrendingUp" class="w-10 h-10 text-orange-500 mb-2"></lucide-angular>
+          <span class="text-base font-semibold text-gray-800">Catégories</span>
+          <span class="text-xs text-gray-500 mt-1">Organiser les articles</span>
+        </a>
+
+        <!-- Card 5: Lignes de Commande -->
+        <a routerLink="/order-line" class="p-5 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-indigo-400 transition flex flex-col items-center text-center">
+          <lucide-angular [img]="ShoppingCart" class="w-10 h-10 text-red-500 mb-2"></lucide-angular>
+          <span class="text-base font-semibold text-gray-800">Lignes de Cde</span>
+          <span class="text-xs text-gray-500 mt-1">Détail des achats</span>
+        </a>
+
+      </div>
+    </section>
+  </div>

@@ -53,8 +53,17 @@ export abstract class AbstractCrudComponent<T,TCreatedto,TUpdatedto> implements 
         }
         else{
           this.service.create(this.form as TCreatedto).subscribe({
-            next:(createdProduct)=>{
-              this.items.push(createdProduct);
+            next:(createdItem)=>{
+              if(!createdItem) return;
+              var itemAlreadyExists = this.items.some(p => (p as any).id === (createdItem as any).id);
+              if(itemAlreadyExists) {
+                this.items = this.items.map(p => (p as any).id === (createdItem as any).id ? createdItem : p);
+                this.toastService.showSuccess("Création effectuée (mise à jour de l'élément existant).");
+                this.reset();
+                return;
+              }
+              this.items.push(createdItem);
+
               this.toastService.showSuccess("Création effectuée.");
               this.reset();
             },
