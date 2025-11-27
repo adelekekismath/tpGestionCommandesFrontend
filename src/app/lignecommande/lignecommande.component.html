@@ -7,7 +7,9 @@
   </h2>
 
   <app-crud
-    [items]="section.lignes"
+    [items]="filteredLignes(section.lignes, section.commande.id)"
+    [searchTerm]="getSearchTerm(section.commande.id)"
+    (searchTermChange)="onSearchTermChange(section.commande.id, $event)"
     [isLoading]="isLoading"
     [form]="form"
     [editMode]="editing && currentCommandeId === section.commande.id"

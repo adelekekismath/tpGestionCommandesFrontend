@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ClientComponent extends AbstractCrudComponent<Client, ClientBaseDto, ClientBaseDto> {
 
+  searchTerm: string = '';
   constructor(private clientService: ClientService,
     toastService: ToastService) {
     super(clientService, toastService);
@@ -27,6 +28,26 @@ export class ClientComponent extends AbstractCrudComponent<Client, ClientBaseDto
       telephone: '',
       adresse: ''
     };
+  }
+
+  filteredClients(): Client[] {
+    if (!this.items) {
+      return [];
+    }
+
+    const lowerSearchTerm = this.searchTerm.toLowerCase().trim();
+
+    if (!lowerSearchTerm) {
+      return this.items;
+    }
+
+    return this.items.filter(client =>
+      client.nom.toLowerCase().includes(lowerSearchTerm) ||
+      client.prenom.toLowerCase().includes(lowerSearchTerm) ||
+      client.email.toLowerCase().includes(lowerSearchTerm) ||
+      client.telephone.toLowerCase().includes(lowerSearchTerm) ||
+      client.adresse.toLowerCase().includes(lowerSearchTerm)
+    );
   }
 
 

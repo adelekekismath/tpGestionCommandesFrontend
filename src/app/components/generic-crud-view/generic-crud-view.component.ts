@@ -1,17 +1,19 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component,  Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { GenericTableComponent } from '../generic-table/generic-table.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-crud',
   standalone: true,
-  imports: [NgTemplateOutlet, GenericTableComponent],
+  imports: [NgTemplateOutlet, GenericTableComponent, FormsModule],
   templateUrl: './generic-crud-view.component.html',
   styleUrl: './generic-crud-view.component.css'
 })
 export class GenericCrudView   {
 
-
+  @Input() searchTerm: string = '';
+  @Output() searchTermChange = new EventEmitter<string>();
   @Input() items: any[] = [];
   @Input() isLoading = false;
   @Input() form!: any;
@@ -26,4 +28,9 @@ export class GenericCrudView   {
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
+
+  onSearchTermChange(model: string): void {
+    this.searchTerm = model;
+    this.searchTermChange.emit(this.searchTerm);
+  }
 }

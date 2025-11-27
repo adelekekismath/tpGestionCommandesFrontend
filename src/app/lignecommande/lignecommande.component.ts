@@ -19,6 +19,8 @@ export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande,
   products: Product [] = [];
   commandes: Commande [] = [];
   currentCommandeId: number | null = null;
+  searchTerm: string = '';
+  searchTermByCommandeId: { [key: number]: string } = {};
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -31,6 +33,14 @@ export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande,
     private commandeService: CommandeService,
     toastService: ToastService) {
     super(lignecommandeService, toastService);
+  }
+
+  getSearchTerm(commandeId: number): string {
+    return this.searchTermByCommandeId[commandeId] || '';
+  }
+
+  onSearchTermChange(commandeId: number, newSearchTerm: string) {
+    this.searchTermByCommandeId[commandeId] = newSearchTerm;
   }
 
   createEmptyForm(): LignecommandeCreateDto {
@@ -71,4 +81,18 @@ export class LignecommandeComponent extends AbstractCrudComponent<Lignecommande,
       this.commandes = data;
     });
   }
+
+  filteredLignes(commandeList: Lignecommande[], commandeId: number): Lignecommande[] {
+    const searchTerm = this.getSearchTerm(commandeId).toLowerCase().trim();
+    if (!searchTerm) {
+      return commandeList;
+    }
+
+    return commandeList.filter(ligne =>
+      ligne.commandeId.toString().includes(searchTerm) ||
+      this.getProductName(ligne.produitId).toLowerCase().includes(searchTerm) ||
+      ligne.quantite.toString().includes(searchTerm)
+    );
+  }
+
 }

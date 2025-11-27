@@ -44,6 +44,10 @@ export abstract class AbstractCrudComponent<T,TCreatedto,TUpdatedto> implements 
                 this.items[index] = updateProduct;
                 this.toastService.showSuccess(`Modification effectuée.`)
                 this.reset();
+                this.creating = false;
+                this.editing = false;
+                this.editItemId = null;
+                return;
               }
             },
             error:(err)=>{
@@ -60,6 +64,8 @@ export abstract class AbstractCrudComponent<T,TCreatedto,TUpdatedto> implements 
                 this.items = this.items.map(p => (p as any).id === (createdItem as any).id ? createdItem : p);
                 this.toastService.showSuccess("Création effectuée (mise à jour de l'élément existant).");
                 this.reset();
+                this.creating = false;
+                this.editing = false;
                 return;
               }
               this.items.push(createdItem);

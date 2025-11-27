@@ -17,6 +17,7 @@ import { GenericCrudView } from '../components/generic-crud-view/generic-crud-vi
 })
 export class ProductsComponent extends AbstractCrudComponent<Product, ProductBaseDto, ProductBaseDto> {
   categories: Category[] = [];
+  searchTerm: string = '';
 
   constructor(private productService: ProductService,
     toastService: ToastService,
@@ -44,6 +45,23 @@ export class ProductsComponent extends AbstractCrudComponent<Product, ProductBas
     this.categoryService.getAll().subscribe((data)=>{
       this.categories = data;
     })
+  }
+
+  filteredProducts(): Product[] {
+    if (!this.items) {
+      return [];
+    }
+
+    const lowerSearchTerm = this.searchTerm.toLowerCase().trim();
+
+    if (!lowerSearchTerm) {
+      return this.items;
+    }
+
+    return this.items.filter(item =>
+      item.nom.toLowerCase().includes(lowerSearchTerm) ||
+      item.description.toLowerCase().includes(lowerSearchTerm)
+    );
   }
 
 }

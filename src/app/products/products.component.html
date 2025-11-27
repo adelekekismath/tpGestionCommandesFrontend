@@ -1,6 +1,7 @@
 <app-crud
-  [items]="items"
+  [items]="filteredProducts()"
   [isLoading]="isLoading"
+  [(searchTerm)]="searchTerm"
   [form]="form"
   [editMode]="editing"
   [createMode]="creating"

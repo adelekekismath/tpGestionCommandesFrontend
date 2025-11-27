@@ -19,7 +19,7 @@ export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeC
 
   products: Product [] = [];
   clients: Client [] = [];
-
+  searchTerm: string = '';
   constructor(private commandeService: CommandeService,
     private productService: ProductService,
     private clientService: ClientService,
@@ -57,5 +57,25 @@ export class CommandeComponent extends AbstractCrudComponent<Commande, CommandeC
     this.productService.getAll().subscribe((data)=>{
       this.products = data;
     });
+  }
+
+  filteredCommandes(): Commande[] {
+    if (!this.items) {
+      return [];
+    }
+
+    const lowerSearchTerm = this.searchTerm.toLowerCase().trim();
+
+    if (!lowerSearchTerm) {
+      return this.items;
+    }
+
+    return this.items.filter(commande => {
+      const clientName = this.getClientName(commande.clientId).toLowerCase();
+      return clientName.includes(lowerSearchTerm) ||
+             commande.statut.toLowerCase().includes(lowerSearchTerm) ||
+             commande.id.toString().includes(lowerSearchTerm);
+    });
+
   }
 }
